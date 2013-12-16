@@ -5,3 +5,8 @@ Changelog
 -------------------
 
 - Initial release
+
+0.2dev
+-------
+
+- ChangE
