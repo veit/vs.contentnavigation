@@ -54,39 +54,35 @@ class SitemapView(BrowserView, Base):
     # --- non-public implementation --------------------------------------------
     
     def _node_to_dict(self, node, current_context):
-        children = ()
-        if IATFolder.providedBy(node):
-            children = node.getFolderContents(
-                {'sort_on' : 'getObjPositionInParent'},
-                full_objects=True
-            )
-            children = node.getFolderContents({'sort_on' : 'getObjPositionInParent'}, full_objects=True)
-            children = [c for c in children if not isDefaultPage(node, c)]
-
-        is_node_for_current_page = (node.absolute_url(1) == current_context.absolute_url(1))
-
-        return dict(
-            path='/'+node.absolute_url(1),
-            url=node.absolute_url(),
-            title=node.Title(),
-            portal_type=node.portal_type,
-            excludeFromNav=node.getExcludeFromNav(),
-            is_node_for_current_page=is_node_for_current_page,
-            children=self._nodes_to_dict(children, current_context),
-         )
-    
+        brains = []
+        pc = self.context.portal_catalog 
+        
+        children = pc(path={ "query": node.getPath(), 'depth':1 })
+        children = [ c for c in children if not c.is_default_page ] 
+        children = [ c for c in children if not c.exclude_from_nav ]
+        children = [ c for c in children if not c.portal_type in self.metaTypesNotToList ]
+        is_node_for_current_page = '/'.join(current_context.getPhysicalPath()).startswith(node.getPath())
+        return {'path': node.getPath(),
+                'url': node.getURL(),
+                'title': node.Title,
+                'portal_type': node.portal_type,
+                'excludeFromNav': node.getExcludeFromNav(), 
+                'is_node_for_current_page': is_node_for_current_page,
+                'children': self._nodes_to_dict(children, current_context)} 
+ 
     def _nodes_to_dict(self, nodes, current_context):
         return map(lambda node: self._node_to_dict(node, current_context), nodes)
     
     def getNavigationTree(self, current_context):
         if not IATFolder.providedBy(current_context):
             # if the requested folder has a default page, the current_context
-            # is the default page, not the folder. For correct rendering we 
+            # is the default page, not the folder. For correct rendering we
             # actually need the folder.
             current_context = current_context.aq_inner.aq_parent
         root = self.getSubnavigationRoot()
+        root = self.context.portal_catalog(UID=root.UID())[0]
         return self._node_to_dict(root, current_context)
-    
+ 
     def _render_children(self, children, depth):
         children_html = map(lambda node: self._node_to_html(node, depth), children)
         return self._flatten_list(children_html)
