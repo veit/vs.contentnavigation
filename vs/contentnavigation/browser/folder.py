@@ -7,6 +7,9 @@ from Products.Five.browser import BrowserView
 from plone.app.layout.viewlets.common import ViewletBase
 from Products.ATContentTypes.interfaces import IATFolder
 from Products.CMFCore.utils import getToolByName
+from zope.component import getUtility
+
+from plone.registry.interfaces import IRegistry
 from plone.app.layout.navigation.defaultpage import isDefaultPage
 
 class Base(object):
@@ -49,7 +52,9 @@ class SitemapView(BrowserView, Base):
     # --- public API -----------------------------------------------------------
 
     def getSitemapForContext(self, current_context=None):
-        return self._renderSitemap(self.getNavigationTree(current_context))
+        registry = getUtility(IRegistry)
+        render_root = registry['vs.contentnavigation.render_root_node']  
+        return self._renderSitemap(self.getNavigationTree(current_context), render_root)
     
     # --- non-public implementation --------------------------------------------
     
@@ -121,12 +126,15 @@ class SitemapView(BrowserView, Base):
         if is_collapsible:
             html.append('</div>')
         return html
-    
-    def _renderSitemap(self, tree):
+
+    def _renderSitemap(self, tree, render_root_node):
         """ HTML sitemap renderer """
         html = list()
-        # root node should not be displayed, so just rendering the children.
-        children_html_lines = map(self._node_to_html, tree['children'])
-        html = self._flatten_list(children_html_lines)
-        return '\n'.join(html)
+        if render_root_node:
+            html_lines = map(self._node_to_html, [tree,])
+        else:
+            html_lines = map(self._node_to_html, tree['children'])
+        html = self._flatten_list(html_lines)
 
+        return '\n'.join(html)
+ 
