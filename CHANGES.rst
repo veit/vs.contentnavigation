@@ -5,3 +5,8 @@ Changelog
 ------------------
 
 - first public release
+
+Steps to be done for product updates:
+- reimport browserlayer.xml, registry.xml, catalog.xml
+- reindex catalog
+ 
