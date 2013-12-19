@@ -9,6 +9,9 @@ from archetypes.schemaextender.interfaces import ISchemaExtender
 from archetypes.schemaextender.field import ExtensionField
 from Products.ATContentTypes.interfaces import IATFolder
 from Products.Archetypes import atapi
+from vs.contentnavigation.interfaces import IContentNavigationInstalled
+from plone.browserlayer.utils import registered_layers
+
 from .. import contentnavigationMessageFactory as _
 
 class MyBooleanField(ExtensionField, atapi.BooleanField):
@@ -32,11 +35,8 @@ class FolderExtender(object):
         self.context = context
 
     def getFields(self):
-        try:
-            ids = [d['id'] for d in self.context.portal_quickinstaller.listInstalledProducts()]
-        except AttributeError:
-            return ()
-        if 'vs.contentnavigation' in ids:
+        if IContentNavigationInstalled in registered_layers():
             return self.fields
-        return ()
+        else:
+            return ()
 
