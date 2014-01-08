@@ -32,7 +32,7 @@ Licence
 Repository
 ==========
 
-https://github.com/zopyx/vs.contentnavigation
+* https://github.com/veit/vs.contentnavigation
 
 Authors
 =======
