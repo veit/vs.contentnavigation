@@ -4,17 +4,16 @@ Changelog
 0.2.0 (2014-01-08)
 ------------------
 
-- merged https://github.com/veit/vs.contentnavigation/pull/1 
-  [ajung]
+- requires Plone 4.1 or higher
 
-- speedup navtree  generation
-  [ajung]
+- merged https://github.com/veit/vs.contentnavigation/pull/1 [ajung]
 
-- check if product installed done by browserlayer
-  [ajung]
+  - speedup navtree  generation
 
-- root node can be displayed (configuration done by registry entry)
-  [ajung]
+  - check if product installed done by browserlayer
+  
+  - root node can be displayed (configuration done by registry entry)
+
 
 0.1.0 (2012-08-08)
 ------------------
