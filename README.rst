@@ -29,6 +29,11 @@ Licence
 
 ``vs.contentnavigation`` is published under the GNU Public Licence V 2 (GPL 2)
 
+Repository
+==========
+
+https://github.com/zopyx/vs.contentnavigation
+
 Authors
 =======
 
