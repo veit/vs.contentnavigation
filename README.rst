@@ -22,7 +22,7 @@ Folderish objects (providing IATFolder) will have a new metadata
 Requirements
 ============
 
-* tested with Plone 4.0-4.3
+* tested with Plone 4.0 - 4.3
 
 Licence
 =======
