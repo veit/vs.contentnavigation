@@ -1,7 +1,7 @@
 #!/bin/bash
 
 export PATH=\
-/opt/buildout.python:\
+/opt/buildout.python/bin:\
 $PATH:
 
 if [[ "$1" = "plone-4.0" ]]
