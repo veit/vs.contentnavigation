@@ -1,6 +1,8 @@
 #!/bin/bash
 
-PYTHON_BASE=/opt/buildout.python
+export PATH=\
+/opt/buildout.python:\
+$PATH:
 
 if [[ "$1" = "plone-4.0" ]]
 then
@@ -26,7 +28,7 @@ then
     config=test-4.3.x.cfg
 fi
 
-$PYTHON_BASE/bin/virtualenv-$python_version .
+virtualenv-$python_version .
 bin/python bootstrap.py -c $config
 bin/buildout -c $config
 bin/test vs.contentnavigation
