@@ -9,7 +9,7 @@ from setuptools import setup, find_packages
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
-version = '0.2.2'
+version = '0.2.3'
 
 long_description = (
     read('README.rst')
@@ -27,6 +27,7 @@ setup(name='vs.contentnavigation',
       # http://pypi.python.org/pypi?:action=list_classifiers
       classifiers=[
         'Framework :: Plone',
+        'Framework :: Plone :: 4.0',
         'Framework :: Plone :: 4.1',
         'Framework :: Plone :: 4.2',
         'Framework :: Plone :: 4.3',
@@ -43,7 +44,7 @@ setup(name='vs.contentnavigation',
       include_package_data=True,
       zip_safe=False,
       install_requires=['setuptools',
-                        'plone.registry',
+                        'plone.app.registry',
                         # -*- Extra requirements: -*-
                         ],
       tests_require=tests_require,
