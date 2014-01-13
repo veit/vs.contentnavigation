@@ -22,8 +22,7 @@ Folderish objects (providing IATFolder) will have a new metadata
 Requirements
 ============
 
-* tested with Plone 4.1 - 4.3
-* for Plone 4.0.x: use vs.contentnavigation 0.1.x
+* tested with Plone 4.0 - 4.3
 
 Licence
 =======
