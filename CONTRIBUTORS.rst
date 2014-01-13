@@ -1,2 +1,0 @@
-"Andreas Jung", Author
-
