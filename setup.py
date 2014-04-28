@@ -45,6 +45,7 @@ setup(name='vs.contentnavigation',
       zip_safe=False,
       install_requires=['setuptools',
                         'plone.app.registry',
+                        'Products.PloneTestCase',
                         # -*- Extra requirements: -*-
                         ],
       tests_require=tests_require,
